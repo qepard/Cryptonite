@@ -99,6 +99,7 @@ async def set_algo_params(algorithm: str,
     match algorithm:
         case "AES-GCM":
             config_args = {
+                "algorithm": algorithm,
                 "key_bit": 256,
                 "nonce_bit": 96,
                 "assoc_data": assoc_data,
@@ -109,6 +110,7 @@ async def set_algo_params(algorithm: str,
         
         case "ChaCha20":
             config_args = {
+                "algorithm": algorithm,
                 "key_bit": 256,
                 "nonce_bit": 64,
                 "assoc_data": None,
@@ -120,13 +122,20 @@ async def set_algo_params(algorithm: str,
         case _:
             raise ValueError(f"Unsupported algorithm: {algorithm}")
 
+class FileHandling:
+    import aiofiles
+    from cypher import AES_GCM, ChaCha20
+    def __init__(self) -> None:
+        ...
+    
+
 async def main(args) -> None:
     match args.web:
         case True:
             print("Web version")
             exit()
         case _:
-            pass
+            ...
 
 if __name__ == "__main__":
     args = parse_args()
